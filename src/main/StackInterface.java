@@ -1,11 +1,11 @@
+package main;
 /**
    An interface for the ADT stack.
    @author Frank M. Carrano
    @author Timothy M. Henry
    @version 5.0
 */
-public interface StackInterface<T>
-{
+public interface StackInterface<T> {
    /** Adds a new entry to the top of this stack.
        @param newEntry  An object to be added to the stack. */
    public void push(T newEntry);
