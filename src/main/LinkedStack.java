@@ -1,35 +1,61 @@
 package main;
 
-public class LinkedStack implements StackInterface {
+import java.util.EmptyStackException;
 
-	@Override
-	public void push(Object newEntry) {
-		// TODO Auto-generated method stub
-		
+// Last In - First Out
+public class LinkedStack<T> implements StackInterface<T> {
+	private Node<T> nodeReference;
+	private int entryCount;
+
+	LinkedStack(){
+		nodeReference = null;
+		entryCount = 0;
 	}
 
 	@Override
-	public Object pop() {
-		// TODO Auto-generated method stub
-		return null;
+	public void push(T newEntry) {
+
+		if (newEntry != null) { 
+			Node<T> newNode = new Node<T>(newEntry);
+			newNode.setNextNode(nodeReference);
+			entryCount++;
+			nodeReference = newNode;
+
+		} 
+		return;
+	}
+	
+	@Override
+	public T pop() {
+		if (isEmpty()) { throw new EmptyStackException(); }
+		entryCount--;
+		Node<T> topNode =  nodeReference;
+		nodeReference = topNode.getNextNode();
+		return topNode.getData();
+
 	}
 
+
 	@Override
-	public Object peek() {
-		// TODO Auto-generated method stub
-		return null;
+	public T peek() {
+		if (isEmpty()) { throw new EmptyStackException(); }
+		Node<T> topNode =  nodeReference;
+		return topNode.getData();
 	}
+
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return (entryCount<=0);
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		nodeReference = null;
+		entryCount = 0;
 	}
+
+
+	
 	
 }

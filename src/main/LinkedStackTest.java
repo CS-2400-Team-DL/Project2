@@ -3,9 +3,14 @@ package main;
 public class LinkedStackTest{
 	
 	public static void main(String[] args) {
-		
-		StackInterface<Object> LinkedStack = new LinkedStack();
-		
+		LinkedStack<String> strStack = new LinkedStack<>();
+		strStack.push("Hello");
+		strStack.push("World");
+		System.out.println(strStack.peek());
+		System.out.println(strStack.pop());
+		System.out.println(strStack.peek());
+		System.out.println(strStack.pop());
+
 	}
 	
 }
