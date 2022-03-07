@@ -15,13 +15,10 @@ public class LinkedStack<T> implements StackInterface<T> {
 	@Override
 	public void push(T newEntry) {
 
-		if (newEntry != null) { 
-			Node<T> newNode = new Node<T>(newEntry);
-			newNode.setNextNode(nodeReference);
-			entryCount++;
-			nodeReference = newNode;
-
-		} 
+		entryCount++;
+		Node<T> newNode = new Node<T>(newEntry);
+		newNode.setNextNode(nodeReference);
+		nodeReference = newNode;
 		return;
 	}
 	
@@ -32,7 +29,6 @@ public class LinkedStack<T> implements StackInterface<T> {
 		Node<T> topNode =  nodeReference;
 		nodeReference = topNode.getNextNode();
 		return topNode.getData();
-
 	}
 
 

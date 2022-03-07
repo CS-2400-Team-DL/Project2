@@ -6,10 +6,12 @@ public class LinkedStackTest{
 		LinkedStack<String> strStack = new LinkedStack<>();
 		strStack.push("Hello");
 		strStack.push("World");
+		System.out.println(strStack.isEmpty());
 		System.out.println(strStack.peek());
 		System.out.println(strStack.pop());
 		System.out.println(strStack.peek());
 		System.out.println(strStack.pop());
+		System.out.println(strStack.isEmpty());
 
 	}
 	
