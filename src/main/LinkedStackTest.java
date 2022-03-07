@@ -3,15 +3,18 @@ package main;
 public class LinkedStackTest{
 	
 	public static void main(String[] args) {
-		LinkedStack<String> strStack = new LinkedStack<>();
-		strStack.push("Hello");
-		strStack.push("World");
-		System.out.println(strStack.isEmpty());
-		System.out.println(strStack.peek());
-		System.out.println(strStack.pop());
-		System.out.println(strStack.peek());
-		System.out.println(strStack.pop());
-		System.out.println(strStack.isEmpty());
+		
+		String Infix = "2^(2*7)/1";
+		System.out.println(LinkedStack.convertToPostFix(Infix));
+		String Infix1 = "2^2*(2*7)/1";
+		System.out.println(LinkedStack.convertToPostFix(Infix1));
+		String Infix2 = "2^(2*7)*(15+4)";
+		System.out.println(LinkedStack.convertToPostFix(Infix2));
+		
+		
+		
+		
+		
 
 	}
 	
