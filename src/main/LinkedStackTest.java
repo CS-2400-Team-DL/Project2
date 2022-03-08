@@ -8,5 +8,11 @@ public class LinkedStackTest{
 		String postfix = LinkedStack.convertToPostFix(infix);
 		System.out.println(postfix);
 	}
+
+	public static String getPostfix(){
+		String infix = "a*b/(c-a)+d*e";
+		String postfix = LinkedStack.convertToPostFix(infix);
+		return postfix;
+	}
 	
 }

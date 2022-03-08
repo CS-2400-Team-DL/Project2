@@ -1,21 +1,21 @@
 package main;
 
-public class ResizeableArrayStack implements StackInterface {
+public class ResizeableArrayStack<T> implements StackInterface<T> {
 
 	@Override
-	public void push(Object newEntry) {
+	public void push(T newEntry) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Object pop() {
+	public T pop() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Object peek() {
+	public T peek() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -31,5 +31,7 @@ public class ResizeableArrayStack implements StackInterface {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 	
 }
