@@ -48,11 +48,19 @@ class ConvertToPostFixTest {
 		String infix = "(a+b)/(c-d)";
 		assertEquals("a b + c d - / ", LinkedStack.convertToPostFix(infix));
 	}
-
+	//Test algorithm's ability to handle nested pearanthesis
 	@Test
 	void NestedParanthesisTest(){
 		String infix = "((a+b)*e)/(c-d)";
 		assertEquals("a b + e * c d - / ", LinkedStack.convertToPostFix(infix));
+	}
+
+	//Test the algorithm's ability to handle complex mixture of all available operands
+	@Test
+	void ComplexOperandTest(){
+		String infix = "((a^b)^c)+d*e/d-f";
+		assertEquals("a b ^ c ^ d e * d / + f - ", LinkedStack.convertToPostFix(infix));
+
 	}
 
 }

@@ -3,13 +3,15 @@ package main;
 import java.util.EmptyStackException;
 
 /**
- * 
- *
- * @param <T>
+ * Stack implenmation using linked data. A stack is a data struture that has a restriction where
+ * only the top entity can be altered. 
+ * Last In, First Out. 
+ * First In, Last Out.
+ * @param <T> Data type of stack contents.
  */
 public class LinkedStack<T> implements StackInterface<T> {
 	private Node<T> nodeReference;
-	
+
 	/** 
 	 * Default constructor for a linked stack.
 	 */
@@ -127,19 +129,19 @@ public class LinkedStack<T> implements StackInterface<T> {
 	private static int precedenceIndex(char activeOp) {
 		switch (activeOp) {
 		case '^':
-			return 5;
+			return 5; // Highest Precedent
 		case '*':
-			return 3;
+			return 3; // Second Highest
 		case '/':
-			return 3;
+			return 3; // Equal to Second
 		case '+':
-			return 1;
+			return 1; // Low Precendent
 		case '-':
-			return 1;
+			return 1; // Same as above
 		case'(':
-			return 0;
+			return 0; // Lowest precendent
 		default:
-			throw new IllegalArgumentException("Unknow Operator");
+			throw new IllegalArgumentException("Unknow Operator"); 
 		}
 	}
 	
