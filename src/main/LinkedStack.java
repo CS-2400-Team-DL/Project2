@@ -9,20 +9,17 @@ import java.util.EmptyStackException;
  */
 public class LinkedStack<T> implements StackInterface<T> {
 	private Node<T> nodeReference;
-	private int entryCount;
-
+	
 	/** 
 	 * Default constructor for a linked stack.
 	 */
 	LinkedStack(){
 		nodeReference = null;
-		entryCount = 0;
 	}
 
 	@Override
 	public void push(T newEntry) {
 
-		entryCount++;
 		Node<T> newNode = new Node<T>(newEntry);
 		newNode.setNextNode(nodeReference);
 		nodeReference = newNode;
@@ -32,7 +29,6 @@ public class LinkedStack<T> implements StackInterface<T> {
 	@Override
 	public T pop() {
 		if (isEmpty()) { throw new EmptyStackException(); }
-		entryCount--;
 		Node<T> topNode =  nodeReference;
 		nodeReference = topNode.getNextNode();
 		return topNode.getData();
@@ -49,13 +45,12 @@ public class LinkedStack<T> implements StackInterface<T> {
 
 	@Override
 	public boolean isEmpty() {
-		return (entryCount<=0);
+		return (nodeReference==null);
 	}
 
 	@Override
 	public void clear() {
 		nodeReference = null;
-		entryCount = 0;
 	}
 	/**
 	 * @author Leonardo.
