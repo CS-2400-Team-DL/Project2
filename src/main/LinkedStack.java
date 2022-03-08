@@ -59,18 +59,19 @@ public class LinkedStack<T> implements StackInterface<T> {
 	}
 	/**
 	 * @author Leonardo.
-	 * Ignores any none math operator
-	 * Will work around white space
-	 * expects balanced infix equation.
+	 * Algorithm to transform a legal infix notation equation into a postfix equation.
+	 * Will ignore any non-math symbols including white space and parse through the given equation.
 	 * @param inFix
 	 * @return
 	 */
 	public static String convertToPostFix(String inFix) {
 		
-		String alpha = "abcdefghijklmnopqrstuvwxyz";
+		
 		String postFix = new String(); 
 		LinkedStack<Character> opStack = new LinkedStack<>();
 		Character activeChar, topOp;
+		String exceptions = "0123456789abcdefghijklmnopqrstuvwxyz";
+		
 		for (int i=0;i<inFix.length();i++) {
 			activeChar = inFix.charAt(i);
 			
@@ -105,15 +106,15 @@ public class LinkedStack<T> implements StackInterface<T> {
 				break;
 				
 			default: // default case handles separating numbers from unexpected input. 
-				if (Character.isDigit(activeChar)) { 
-					postFix = postFix.concat(activeChar.toString() + " ");
-				} else if (-1 != alpha.indexOf(activeChar)){
+				if (-1 != exceptions.indexOf(activeChar)){ // adds anything to postFix that is part of the exceptions String.
 					postFix = postFix.concat(activeChar.toString() + " ");
 				}
 				
 				break;
-			}
-		}
+			} // Switch End
+			
+		} // End of For Loop
+		
 		while (!opStack.isEmpty()) {
 			topOp = opStack.pop();
 			postFix = postFix.concat(topOp.toString() + " ");
@@ -124,9 +125,9 @@ public class LinkedStack<T> implements StackInterface<T> {
 	} // end of Algorithm
 	
 	/**
-	 * 
-	 * @param activeOp
-	 * @return
+	 * Index of precedence level made from a switch case.
+	 * @param Must either be '^, *, /, +, -, or )' to have a proper precedence value
+	 * @return the level of precedence from a given legal math operator
 	 */
 	private static int precedenceIndex(char activeOp) {
 		switch (activeOp) {
