@@ -2,11 +2,18 @@ package main;
 
 import java.util.EmptyStackException;
 
-// Last In - First Out
+/**
+ * 
+ *
+ * @param <T>
+ */
 public class LinkedStack<T> implements StackInterface<T> {
 	private Node<T> nodeReference;
 	private int entryCount;
 
+	/** 
+	 * Default constructor for a linked stack.
+	 */
 	LinkedStack(){
 		nodeReference = null;
 		entryCount = 0;
@@ -51,6 +58,7 @@ public class LinkedStack<T> implements StackInterface<T> {
 		entryCount = 0;
 	}
 	/**
+	 * @author Leonardo.
 	 * Ignores any none math operator
 	 * Will work around white space
 	 * expects balanced infix equation.
@@ -59,11 +67,10 @@ public class LinkedStack<T> implements StackInterface<T> {
 	 */
 	public static String convertToPostFix(String inFix) {
 		
+		String alpha = "abcdefghijklmnopqrstuvwxyz";
 		String postFix = new String(); 
 		LinkedStack<Character> opStack = new LinkedStack<>();
-		
 		Character activeChar, topOp;
-		
 		for (int i=0;i<inFix.length();i++) {
 			activeChar = inFix.charAt(i);
 			
@@ -89,8 +96,9 @@ public class LinkedStack<T> implements StackInterface<T> {
 			case '/':	
 			case '+':				
 			case '-':
-				while (!opStack.isEmpty() && 
-					(LinkedStack.precedenceIndex(activeChar) <= LinkedStack.precedenceIndex(opStack.peek()))) {
+				
+				while (!opStack.isEmpty() && ( LinkedStack.precedenceIndex(activeChar) <= LinkedStack.precedenceIndex(opStack.peek()))) {
+					
 					postFix = postFix.concat(opStack.pop().toString() + " ");
 				}
 				opStack.push(activeChar);
@@ -99,8 +107,8 @@ public class LinkedStack<T> implements StackInterface<T> {
 			default: // default case handles separating numbers from unexpected input. 
 				if (Character.isDigit(activeChar)) { 
 					postFix = postFix.concat(activeChar.toString() + " ");
-				} else {
-					
+				} else if (-1 != alpha.indexOf(activeChar)){
+					postFix = postFix.concat(activeChar.toString() + " ");
 				}
 				
 				break;
@@ -115,6 +123,11 @@ public class LinkedStack<T> implements StackInterface<T> {
 		
 	} // end of Algorithm
 	
+	/**
+	 * 
+	 * @param activeOp
+	 * @return
+	 */
 	private static int precedenceIndex(char activeOp) {
 		switch (activeOp) {
 		case '^':
@@ -134,8 +147,6 @@ public class LinkedStack<T> implements StackInterface<T> {
 		}
 	}
 	
-	
-		
 }// end of class
 
 

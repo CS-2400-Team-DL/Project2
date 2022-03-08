@@ -12,6 +12,8 @@ public class LinkedStackTest{
 		System.out.println(LinkedStack.convertToPostFix(Infix2));
 		String Infix3 = "1 * 2 / (3 - 1) + 4 * 5";
 		System.out.println(LinkedStack.convertToPostFix(Infix3));
+		String Infix4 = "a*b/(c-a)+d*e";
+		System.out.println(LinkedStack.convertToPostFix(Infix4));
 		
 		
 		
