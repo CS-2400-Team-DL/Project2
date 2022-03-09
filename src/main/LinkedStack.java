@@ -146,7 +146,30 @@ public class LinkedStack<T> implements StackInterface<T> {
 			throw new IllegalArgumentException("Unknow Operator"); 
 		}
 	}
+}
+
+final class Node<T>{
+	private T data;
+	private Node<T> nextNode;
+
+	public Node(T data, Node<T> nextNode){
+		this.data = data;
+		this.nextNode = nextNode;
+	}
+	public Node(T data){
+		this(data,null);
+	}
+	public T getData(){
+		return this.data;
+	}
+	public void setData(T newData){
+		this.data = newData;
+	}
+	public Node<T> getNextNode(){
+		return this.nextNode;
+	}
+	public void setNextNode(Node<T> newNode){
+		this.nextNode = newNode;
+	}
 	
-}// end of class
-
-
+}
