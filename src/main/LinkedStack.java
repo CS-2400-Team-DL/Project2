@@ -60,11 +60,12 @@ public class LinkedStack<T> implements StackInterface<T> {
 	 * @author Leonardo.
 	 * Algorithm to transform a legal infix notation equation into a postfix equation.
 	 * Will ignore any non-math symbols including white space and parse through the given equation.
-	 * @param inFix
-	 * @return
+	 * Unbalanced infix notation will get an output. It will treat everything after an open paranthesis 
+	 * @param inFix input to be transformed into postfix - should be a balanced equation.
+	 * @throws IllegalArgumentException if the infix input does not have all parenthesis closed
+	 * @return A string transformation of the infix input into postfix notation.
 	 */
 	public static String convertToPostFix(String inFix) {
-		
 		
 		String postFix = new String(); 
 		LinkedStack<Character> opStack = new LinkedStack<>();
@@ -116,6 +117,7 @@ public class LinkedStack<T> implements StackInterface<T> {
 		
 		while (!opStack.isEmpty()) {
 			topOp = opStack.pop();
+			if (topOp == '(') { throw new IllegalArgumentException("Open Parenthesis");}
 			postFix = postFix.concat(topOp.toString() + " ");
 		}
 		
@@ -145,8 +147,10 @@ public class LinkedStack<T> implements StackInterface<T> {
 		default:
 			throw new IllegalArgumentException("Unknow Operator"); 
 		}
-	}
+	} // End of precedenceIndex
+
 }
+
 
 final class Node<T>{
 	private T data;
