@@ -7,6 +7,8 @@ import java.util.EmptyStackException;
  * only the top entity can be altered. 
  * Last In, First Out. 
  * First In, Last Out.
+ * 
+ * 
  * @param <T> Data type of stack contents.
  */
 public class LinkedStack<T> implements StackInterface<T> {
