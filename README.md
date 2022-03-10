@@ -4,7 +4,7 @@ Master the interface and implementations of Stacks. Use Stacks to solve some com
 
 Leonardo Davalos:
 
-    LinkedStack.java, LinkededStackTest.java, Node.java 
+    LinkedStack.java, LinkededStackTest.java
 Dean:
    
     ResizeableArrayStack.java, ArrayStackedTest.java

@@ -2,8 +2,18 @@ package main;
 
 import java.util.Scanner;
 
+/**
+ * Test the implementation of the convert to postfix algorith. Prints both the infix notation and the
+ * resulting postfix transformation. Continues into a loop where infix notation will transformed into postfix.
+ * Type 'exit' to stop the loop.
+ */
 public class LinkedStackTest{
-	
+	/**
+	 * Test the implementation of the convert to postfix algorith. Prints both the infix notation and the
+	 * resulting postfix transformation. Continues into a loop where infix notation will transformed into postfix.
+	 * Type 'exit' to stop the loop.
+	 * @param args 
+	 */
 	public static void main(String[] args) {
 		
 		String infix = "a*b/(c-a)+d*e";
