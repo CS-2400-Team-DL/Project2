@@ -17,23 +17,23 @@ public class LinkedStackTest{
 	public static void main(String[] args) {
 		
 		String infix = "a*b/(c-a)+d*e";
-		String postfix = LinkedStack.convertToPostFix(infix);
-		System.out.print("\ninfix: " + infix + "\npostfix: " + postfix + "\n\n ");
+		String postfix = LinkedStack.convertToPostfix(infix);
+		System.out.print("\ninfix: " + infix + "\npostfix:" + postfix + "\n\n ");
 
 		//User Input Loop
 		boolean run = true;
 		Scanner input = new Scanner(System.in);
 		while (run){
 			System.out.println("\nEnter 'exit' or Infix:");
-			String postifx1 = input.next();
+			String postifx1 = input.nextLine();
 
 			if (postifx1.contains("exit")) { 
 				run = false;
 			} else {
 				try {
-					System.out.println(LinkedStack.convertToPostFix(postifx1));
+					System.out.println(LinkedStack.convertToPostfix(postifx1));
 				} catch (IllegalArgumentException e) {
-					System.out.println("Open Parenthesis Detected");
+					System.out.println("Infix equation is not legal");
 				}
 			}
 		}
@@ -44,7 +44,7 @@ public class LinkedStackTest{
 
 	public static String getPostfix(){
 		String infix = "a*b/(c-a)+d*e";
-		String postfix = LinkedStack.convertToPostFix(infix);
+		String postfix = LinkedStack.convertToPostfix(infix);
 		return postfix;
 	}
 	

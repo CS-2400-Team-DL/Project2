@@ -58,26 +58,26 @@ public class LinkedStack<T> implements StackInterface<T> {
 	 * Will ignore any non-math symbols including white space and parse through the given equation.
 	 * Unbalanced infix notation will get an {@link IllegalArgumentException}
 	 * @param inFix input to be transformed into postfix - should be a balanced equation.
-	 * @throws IllegalArgumentException if the infix input does not have all parenthesis closed
+	 * @throws IllegalArgumentException if the infix input does not have all parenthesis closed and is not balanced.
 	 * @return A string transformation of the infix input into postfix notation.
 	 * @author Leonardo
 	 */
-	public static String convertToPostFix(String inFix) {
+ 	public final static String convertToPostfix(String inFix) {
 		
-		String postFix = new String(); 
-		LinkedStack<Character> opStack = new LinkedStack<>();
-		Character activeChar, topOp;
-		String exceptions = "0123456789abcdefghijklmnopqrstuvwxyz";
+		String postFix = new String(); // output of algorithm
+		LinkedStack<Character> opStack = new LinkedStack<>(); // stack used to hold operators
+		int opCount = 1; // counts up with operators and down with variables/numbers
+		Character topOp;
 		
 		for (int i=0;i<inFix.length();i++) {
-			activeChar = inFix.charAt(i);
 			
+			Character activeChar = inFix.charAt(i);
 			switch (activeChar) {
 			
 				case ')':
 					topOp = opStack.pop();
 					while(topOp != '(') {
-						postFix = postFix.concat(topOp.toString() + " ");
+						postFix = postFix.concat(topOp.toString());
 						topOp = opStack.pop();
 					}
 					break;
@@ -87,30 +87,51 @@ public class LinkedStack<T> implements StackInterface<T> {
 					break;
 					
 				case '^':
+					opCount++;
 					opStack.push(activeChar);
 					break;
 					
 				case '*': case '/': case '+': case '-': // All have same instructions to execute
 					
-					while (!opStack.isEmpty() && (LinkedStack.precedenceIndex(activeChar) <= LinkedStack.precedenceIndex(opStack.peek()))) {
-						postFix = postFix.concat(opStack.pop().toString() + " ");
+					opCount++;
+					while ( !opStack.isEmpty() && (precedenceIndex(activeChar) <= precedenceIndex(opStack.peek())) ) {
+						topOp = opStack.pop();
+						postFix = postFix.concat(topOp.toString());
 					}
 					opStack.push(activeChar);
 					break;
 				
 				default: // default case handles separating unexpected input. 
-					if (-1 != exceptions.indexOf(activeChar)){ // adds anything to postFix that is part of the exceptions String.
-						postFix = postFix.concat(activeChar.toString() + " ");
+
+					if (activeChar >= 97 && activeChar <= 122){ // adds variables to postfix
+						postFix = postFix.concat(" " + activeChar.toString());
+						opCount--;
+
+					} else { 
+						int j = i;
+						boolean bigNumPossible = false; // true when multiple numbers in a row are found
+						while ( (j < inFix.length()) && (inFix.charAt(j)>= 48 && inFix.charAt(j)<= 57) ) { //handles seperating numbers from unexpected input  ###OPTIONAL###
+							if (!bigNumPossible){ postFix = postFix.concat(" "); } //creates white space before first number
+							bigNumPossible = true;
+							Character nextChar = inFix.charAt(j);
+							postFix = postFix.concat(nextChar.toString());
+							j++;
+						}
+						if (bigNumPossible) {
+							i = j - 1; 
+							opCount--;
+						} // if the while loop is entered i has to updated by the length of read numbe
 					}
 					break;
 				
 			} // Switch End
 		} // End of For Loop
-		
+
+		if (opCount != 0){ throw new IllegalArgumentException("Uneven infix"); }
 		while (!opStack.isEmpty()) { // empty the opStack top to bottom
 			topOp = opStack.pop();
 			if (topOp == '(') { throw new IllegalArgumentException("Open Parenthesis");}
-			postFix = postFix.concat(topOp.toString() + " ");
+			postFix = postFix.concat(topOp.toString());
 		}
 		
 		return postFix;
@@ -122,27 +143,27 @@ public class LinkedStack<T> implements StackInterface<T> {
 	 * @return the level of precedence from a given legal math operator
 	 * @throw {@link IllegalArgumentException} when an operator not accounted for is encountered.
 	 */
-	private static int precedenceIndex(char activeOp) {
+	final private static int precedenceIndex(char activeOp) {
 		switch (activeOp) {
 			case '^':
-				return 5; // Highest Precedent
+				return 5; // 1st order
 			case '*':
-				return 3; // Second Highest
+				return 3; // 2nd order
 			case '/':
-				return 3; // Equal to Second
+				return 3; // 2nd order
 			case '+':
-				return 1; // Low Precedent
+				return 1; // 3rd order
 			case '-':
-				return 1; // Same as above
+				return 1; // 3rd order
 			case'(':
-				return 0; // Lowest precedent
+				return 0; // 4th order
 			default:
 				throw new IllegalArgumentException("Unknow Operator"); 
 		}
 	} // End of precedenceIndex
 }
 
-final class Node<T>{
+class Node<T>{
 	private T data;
 	private Node<T> nextNode;
 
