@@ -24,7 +24,7 @@ public class LinkedStackTest{
 		boolean run = true;
 		Scanner input = new Scanner(System.in);
 		while (run){
-			System.out.println("\nEnter 'exit' or Infix:");
+			System.out.println("\nEnter 'exit' or Infix Equations:");
 			String postifx1 = input.nextLine();
 
 			if (postifx1.contains("exit")) { 
@@ -38,8 +38,7 @@ public class LinkedStackTest{
 			}
 		}
 		input.close();
-		System.out.println("Good Bye");
-		
+		System.out.println("\n -Good Bye- \n");
 	}
 
 	public static String getPostfix(){

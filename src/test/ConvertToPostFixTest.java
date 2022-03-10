@@ -1,6 +1,6 @@
 package test;
 
-import main.*;
+import main.LinkedStack;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
@@ -62,5 +62,13 @@ class ConvertToPostFixTest {
 		assertEquals(" a b^ c^ d e* d/+ f-", LinkedStack.convertToPostfix(infix));
 
 	}
+
+	//Test the algorithms ability to candle numbers as input
+	@Test
+	void NumbersAsInput(){
+		String infix = "(12+13)/25+1*10";
+		assertEquals(" 12 13+ 25/ 1 10*+", LinkedStack.convertToPostfix(infix));
+	}
+
 
 }

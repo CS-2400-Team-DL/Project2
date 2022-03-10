@@ -74,14 +74,18 @@ public class LinkedStack<T> implements StackInterface<T> {
 			Character activeChar = inFix.charAt(i);
 			switch (activeChar) {
 			
-				case ')':
-					topOp = opStack.pop();
-					while(topOp != '(') {
-						postFix = postFix.concat(topOp.toString());
+				case ')': //Must empty opStack up to opening parenthesis
+					try {
 						topOp = opStack.pop();
+						while(topOp != '(') {
+							postFix = postFix.concat(topOp.toString());
+							topOp = opStack.pop();
+						}
+					;
+					} catch (EmptyStackException e) {
+						throw new IllegalArgumentException("No starter parenthesis");
 					}
 					break;
-					
 				case '(':
 					opStack.push(activeChar);
 					break;
@@ -160,7 +164,8 @@ public class LinkedStack<T> implements StackInterface<T> {
 			default:
 				throw new IllegalArgumentException("Unknow Operator"); 
 		}
-	} // End of precedenceIndex
+	}
+
 }
 
 class Node<T>{
