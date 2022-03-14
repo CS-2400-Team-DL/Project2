@@ -3,13 +3,13 @@ package main;
 import java.util.Scanner;
 
 /**
- * Test the implementation of the convert to postfix algorith. Prints both the infix notation and the
+ * Test the implementation of the convert to postfix algorithm. Prints both the infix notation and the
  * resulting postfix transformation. Continues into a loop where infix notation will transformed into postfix.
  * Type 'exit' to stop the loop.
  */
 public class LinkedStackTest{
 	/**
-	 * Test the implementation of the convert to postfix algorith. Prints both the infix notation and the
+	 * Test the implementation of the convert to postfix algorithm. Prints both the infix notation and the
 	 * resulting postfix transformation. Continues into a loop where infix notation will transformed into postfix.
 	 * Type 'exit' to stop the loop.
 	 * @param args 
@@ -25,13 +25,13 @@ public class LinkedStackTest{
 		Scanner input = new Scanner(System.in);
 		while (run){
 			System.out.println("\nEnter 'exit' or Infix Equations:");
-			String postifx1 = input.nextLine();
+			String postfix1 = input.nextLine();
 
-			if (postifx1.contains("exit")) { 
+			if (postfix1.contains("exit")) { 
 				run = false;
 			} else {
 				try {
-					System.out.println(LinkedStack.convertToPostfix(postifx1));
+					System.out.println(LinkedStack.convertToPostfix(postfix1));
 				} catch (IllegalArgumentException e) {
 					System.out.println("Infix equation is not legal");
 				}
@@ -41,6 +41,10 @@ public class LinkedStackTest{
 		System.out.println("\n -Good Bye- \n");
 	}
 
+	/**
+	 * Converts the infix equation from task 1 into postfix.
+	 * @return The postfix string of the task 1 infix string.
+	 */
 	public static String getPostfix(){
 		String infix = "a*b/(c-a)+d*e";
 		String postfix = LinkedStack.convertToPostfix(infix);

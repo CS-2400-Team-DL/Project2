@@ -66,7 +66,7 @@ public class LinkedStack<T> implements StackInterface<T> {
 		
 		String postFix = new String(); // output of algorithm
 		LinkedStack<Character> opStack = new LinkedStack<>(); // stack used to hold operators
-		int opCount = 1; // counts up with operators and down with variables/numbers
+		int opBalance = 0; // counts down with operators and up with variables/numbers
 		Character topOp;
 		
 		for (int i=0;i<inFix.length();i++) {
@@ -91,13 +91,13 @@ public class LinkedStack<T> implements StackInterface<T> {
 					break;
 					
 				case '^':
-					opCount++;
+					opBalance--;
 					opStack.push(activeChar);
 					break;
 					
 				case '*': case '/': case '+': case '-': // All have same instructions to execute
 					
-					opCount++;
+					opBalance--;
 					while ( !opStack.isEmpty() && (precedenceIndex(activeChar) <= precedenceIndex(opStack.peek())) ) {
 						topOp = opStack.pop();
 						postFix = postFix.concat(topOp.toString());
@@ -109,29 +109,29 @@ public class LinkedStack<T> implements StackInterface<T> {
 
 					if (activeChar >= 97 && activeChar <= 122){ // adds variables to postfix
 						postFix = postFix.concat(" " + activeChar.toString());
-						opCount--;
+						opBalance++;
 
 					} else { 
 						int j = i;
-						boolean bigNumPossible = false; // true when multiple numbers in a row are found
-						while ( (j < inFix.length()) && (inFix.charAt(j)>= 48 && inFix.charAt(j)<= 57) ) { //handles seperating numbers from unexpected input  ###OPTIONAL###
-							if (!bigNumPossible){ postFix = postFix.concat(" "); } //creates white space before first number
-							bigNumPossible = true;
+						boolean isNewNumber = false; // true when multiple numbers in a row are found
+						while ( (j < inFix.length()) && (inFix.charAt(j)>= 48 && inFix.charAt(j)<= 57) ) { //handles separating numbers from unexpected input  ###OPTIONAL###
+							if (!isNewNumber){ postFix = postFix.concat(" "); } //creates white space before first number
+							isNewNumber = true;
 							Character nextChar = inFix.charAt(j);
 							postFix = postFix.concat(nextChar.toString());
 							j++;
 						}
-						if (bigNumPossible) {
+						if (isNewNumber) {
 							i = j - 1; 
-							opCount--;
-						} // if the while loop is entered i has to updated by the length of read numbe
+							opBalance++;
+						} // if the while loop is entered i has to be updated by the amount of loops that passed inside
 					}
 					break;
 				
 			} // Switch End
 		} // End of For Loop
 
-		if (opCount != 0){ throw new IllegalArgumentException("Uneven infix"); }
+		if (opBalance != 1){ throw new IllegalArgumentException("Uneven infix"); }
 		while (!opStack.isEmpty()) { // empty the opStack top to bottom
 			topOp = opStack.pop();
 			if (topOp == '(') { throw new IllegalArgumentException("Open Parenthesis");}
@@ -162,7 +162,7 @@ public class LinkedStack<T> implements StackInterface<T> {
 			case'(':
 				return 0; // 4th order
 			default:
-				throw new IllegalArgumentException("Unknow Operator"); 
+				throw new IllegalArgumentException("Unknown Operator"); 
 		}
 	}
 
