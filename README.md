@@ -7,5 +7,6 @@ Leonardo Davalos:
     LinkedStack.java, LinkededStackTest.java
 Dean:
    
-    ResizeableArrayStack.java, ArrayStackedTest.java
+    ResizeableArrayStack.java, ArrayStackedTest.java, Video Editing
 
+[Video Link](https://youtu.be/s9OuqlZ7Mhg),
