@@ -150,7 +150,7 @@ public class ResizeableArrayStack<T> implements StackInterface<T>
 				case '^':
 				operandTwo = valueStack.pop();
 				operandOne = valueStack.pop();
-				result = operandOne ^ operandTwo;
+				result = (int)Math.pow(operandOne, operandTwo);
 				System.out.println(operandOne + " ^ " + operandTwo + " = " + result);
 				valueStack.push(result);
 				break;
