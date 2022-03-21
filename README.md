@@ -10,3 +10,4 @@ Dean:
     ResizeableArrayStack.java, ArrayStackedTest.java, Video Editing
 
 [Video Link](https://youtu.be/s9OuqlZ7Mhg),
+[Java Docs](doc/index.html)
