@@ -107,4 +107,53 @@ public class ResizeableArrayStack<T> implements StackInterface<T>
    	} // end while
    	//Assertion: topIndex is -1
 	}
+
+	public final static String evaluatePostfix(String postfix) {
+		//Evaluates a postfix expression.
+		ResizeableArrayStack<Character> valueStack = new ResizeableArrayStack<>();
+		for (int i=0;i<postfix.length();i++)
+		{
+			Character nextCharacter = postfix.charAt(i);
+			switch(nextCharacter)
+			{
+				case '+':
+					Character operandTwo = valueStack.pop();
+					Character operandOne = valueStack.pop();
+					int result = operandOne + operandTwo;
+					valueStack.push((char)result);
+					break;
+				case '-':
+				operandTwo = valueStack.pop();
+				operandOne = valueStack.pop();
+				result = operandOne - operandTwo;
+				valueStack.push((char)result);
+				break;
+				case '*':
+				operandTwo = valueStack.pop();
+				operandOne = valueStack.pop();
+				result = operandOne * operandTwo;
+				valueStack.push((char)result);
+				break;
+				case '/':
+				operandTwo = valueStack.pop();
+				operandOne = valueStack.pop();
+				result = operandOne / operandTwo;
+				valueStack.push((char)result);
+				break;
+				case '^':
+				operandTwo = valueStack.pop();
+				operandOne = valueStack.pop();
+				result = operandOne ^ operandTwo;
+				valueStack.push((char)result);
+				break;
+
+				default:
+					if (nextCharacter >= 97 && nextCharacter <= 122){ // adds variables to postfix
+						valueStack.push(nextCharacter);
+					}
+					break;
+			}
+		}
+		return valueStack.peek().toString();
+	}
 }
