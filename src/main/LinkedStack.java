@@ -71,11 +71,12 @@ public class LinkedStack<T> implements StackInterface<T> {
 		
 		for (int i=0;i<inFix.length();i++) {
 			
-			Character activeChar = inFix.charAt(i);
-			switch (activeChar) {
+			Character activeChar = inFix.charAt(i); // parses thought every character in the input string.
+			switch (activeChar) { // will accept any character. if it does not exist in the cases it will skip it.
 			
 				case ')': //Must empty opStack up to opening parenthesis
 					try {
+						
 						topOp = opStack.pop();
 						while(topOp != '(') {
 							postFix = postFix.concat(topOp.toString());
@@ -106,31 +107,32 @@ public class LinkedStack<T> implements StackInterface<T> {
 					break;
 				
 				default: // default case handles separating unexpected input. 
-
-					if (activeChar >= 97 && activeChar <= 122){ // adds variables to postfix
+					// adds letter variables to postfix
+					if ((activeChar >= 65 && activeChar <= 90) | (activeChar >= 97 && activeChar <= 122)){ 
 						postFix = postFix.concat(" " + activeChar.toString());
 						opBalance++;
 
-					} else { 
+					} else {  
 						int j = i;
-						boolean isNewNumber = false; // true when multiple numbers in a row are found
-						while ( (j < inFix.length()) && (inFix.charAt(j)>= 48 && inFix.charAt(j)<= 57) ) { //handles separating numbers from unexpected input  ###OPTIONAL###
-							if (!isNewNumber){ postFix = postFix.concat(" "); } //creates white space before first number
-							isNewNumber = true;
+						boolean isNewNumber = true;
+						while ( (j < inFix.length()) && ( (inFix.charAt(j)>= 48) && (inFix.charAt(j)<= 57)) ) { //handles separating numbers from unexpected input ###OPTIONAL###
+							if (isNewNumber){ postFix = postFix.concat(" "); } //creates white space before first number
+							isNewNumber = false;
 							Character nextChar = inFix.charAt(j);
 							postFix = postFix.concat(nextChar.toString());
 							j++;
 						}
-						if (isNewNumber) {
+						if (!isNewNumber) {
 							i = j - 1; 
 							opBalance++;
 						} // if the while loop is entered i has to be updated by the amount of loops that passed inside
 					}
+					// if input is not caught in either if or else it is ignored.
 					break;
-				
 			} // Switch End
 		} // End of For Loop
 
+		//Empty OpStack
 		if (opBalance != 1){ throw new IllegalArgumentException("Uneven infix"); }
 		while (!opStack.isEmpty()) { // empty the opStack top to bottom
 			topOp = opStack.pop();
@@ -141,6 +143,7 @@ public class LinkedStack<T> implements StackInterface<T> {
 		return postFix;
 	} // end of Algorithm
 	
+
 	/**
 	 * Index of precedence level made from a switch case. 
 	 * @param Must either be '^, *, /, +, -, or )' to have a proper precedence value
