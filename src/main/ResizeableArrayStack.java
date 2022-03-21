@@ -1,37 +1,159 @@
 package main;
 
-public class ResizeableArrayStack<T> implements StackInterface<T> {
+import java.util.Arrays;
+import java.util.EmptyStackException;
+
+public class ResizeableArrayStack<T> implements StackInterface<T>
+{
+	/** A class of stacks whose entries are stored in an array. */
+	private T[] stack;    // Array of stack entries
+	private int topIndex; // Index of top entry
+	private boolean integrityOK = false;
+	private static final int DEFAULT_CAPACITY = 50;
+	private static final int MAX_CAPACITY = 10000;
+	
+	public ResizeableArrayStack()
+	{
+		this(DEFAULT_CAPACITY);
+	} // end default constructor
+
+	public ResizeableArrayStack(int initialCapacity)
+	{
+	integrityOK = false;
+	checkCapacity(initialCapacity);
+      
+	// The cast is safe because the new array contains null entries
+	@SuppressWarnings("unchecked")
+	T[] tempStack = (T[])new Object[initialCapacity];
+	stack = tempStack;
+	topIndex = -1;
+	integrityOK = true;
+	} // end constructor
+  
+
+	// Throws an exception if receiving object is not initialized.
+	private void checkIntegrity() {
+		if (!integrityOK)
+			throw new SecurityException ("ArrayStack object is corrupt.");
+	} // end checkintegrity()
+
+	// Throws an exception if the client requests a capacity that is too large.
+	private void checkCapacity(int capacity) {
+		if (capacity > MAX_CAPACITY)
+		throw new IllegalStateException("Attempt to create a stack whose capacity exceeds allowed maximum of " + MAX_CAPACITY);
+	} // end checkCapacity
+
+	private void ensureCapacity()
+	{
+		if (topIndex >= stack.length - 1) // If array is full, double its size
+		{
+			int newLength = 2 * stack.length;
+			checkCapacity(newLength);
+			stack = Arrays.copyOf(stack, newLength);
+		} // end if
+	} // end ensureCapacity
+
 
 	@Override
 	public void push(T newEntry) {
-		// TODO Auto-generated method stub
-		
+		checkIntegrity();
+		ensureCapacity();
+		stack[topIndex + 1] = newEntry;
+		topIndex++;
 	}
+
 
 	@Override
 	public T pop() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		checkIntegrity();
+		if (isEmpty())
+			throw new EmptyStackException();
+		else
+		{
+			T top = stack[topIndex];
+			stack[topIndex] = null;
+			topIndex--;
+			return top;
+		} // end if
+	} // end pop
+
 
 	@Override
 	public T peek() {
-		// TODO Auto-generated method stub
-		return null;
+		checkIntegrity();
+		if (isEmpty())
+			throw new EmptyStackException();
+		else
+			return stack[topIndex];
 	}
+
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return topIndex<0;
 	}
+
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+   	checkIntegrity();
+      
+   	// Remove references to the objects in the stack,
+   	// but does not deallocate the array
+   	while (topIndex > -1)
+   	{
+   		stack[topIndex] = null;
+   		topIndex--;
+   	} // end while
+   	//Assertion: topIndex is -1
 	}
 
-	
-	
+	public final static String evaluatePostfix(String postfix) {
+		//Evaluates a postfix expression.
+		ResizeableArrayStack<Character> valueStack = new ResizeableArrayStack<>();
+		for (int i=0;i<postfix.length();i++)
+		{
+			Character nextCharacter = postfix.charAt(i);
+			switch(nextCharacter)
+			{
+				case '+':
+					Character operandTwo = valueStack.pop();
+					Character operandOne = valueStack.pop();
+					int result = operandOne + operandTwo;
+					valueStack.push((char)result);
+					break;
+				case '-':
+				operandTwo = valueStack.pop();
+				operandOne = valueStack.pop();
+				result = operandOne - operandTwo;
+				valueStack.push((char)result);
+				break;
+				case '*':
+				operandTwo = valueStack.pop();
+				operandOne = valueStack.pop();
+				result = operandOne * operandTwo;
+				valueStack.push((char)result);
+				break;
+				case '/':
+				operandTwo = valueStack.pop();
+				operandOne = valueStack.pop();
+				result = operandOne / operandTwo;
+				valueStack.push((char)result);
+				break;
+				case '^':
+				operandTwo = valueStack.pop();
+				operandOne = valueStack.pop();
+				result = operandOne ^ operandTwo;
+				valueStack.push((char)result);
+				break;
+
+				default:
+					if (nextCharacter >= 97 && nextCharacter <= 122){ // adds variables to postfix
+						valueStack.push(nextCharacter);
+					}
+					break;
+			}
+		}
+		return valueStack.peek().toString();
+	}
 }
