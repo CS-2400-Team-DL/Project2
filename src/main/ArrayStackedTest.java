@@ -1,7 +1,17 @@
 package main;
 
+/**
+ * 
+ * Test the implementation of evaluatePostfix algorithm of the ResizeableArrayStack 
+ *
+ */
 public class ArrayStackedTest {
-
+	
+	/**
+	 * Method to test implementation of evaluatePostfix on the postfix transformation 
+	 * of task1's equation.
+	 * @param args -
+	 */
     public static void main(String[] args){
         
         String Task1postfix = LinkedStackTest.getPostfix();

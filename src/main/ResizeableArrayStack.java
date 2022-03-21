@@ -2,21 +2,32 @@ package main;
 
 import java.util.Arrays;
 import java.util.EmptyStackException;
-
+/**
+ * 
+ * A class of stacks whose entries are stored in an array.
+ *
+ * @param <T> - 
+ */
 public class ResizeableArrayStack<T> implements StackInterface<T>
 {
-	/** A class of stacks whose entries are stored in an array. */
 	private T[] stack;    // Array of stack entries
 	private int topIndex; // Index of top entry
 	private boolean integrityOK = false;
 	private static final int DEFAULT_CAPACITY = 50;
 	private static final int MAX_CAPACITY = 10000;
 	
+	/**
+	 * Default constructor for array stack
+	 */
 	public ResizeableArrayStack()
 	{
 		this(DEFAULT_CAPACITY);
 	} // end default constructor
 
+	/**
+	 * Constructor for array stack
+	 * @param initialCapacity - initial capacity for Array Stack
+	 */
 	public ResizeableArrayStack(int initialCapacity)
 	{
 	integrityOK = false;
@@ -113,7 +124,7 @@ public class ResizeableArrayStack<T> implements StackInterface<T>
 	 * Evaluates a postfix expression that consists of only digits and operators.
 	 * It will ignore non-number, non-letter, and non-operator symbols.
 	 * If input includes letters it will return a result as an error message.
-	 * @param postfix
+	 * @param postfix -
 	 * @return evaluated number resultant from the postfix equation as a string.
 	 * @author Dean Mah
 	 */
