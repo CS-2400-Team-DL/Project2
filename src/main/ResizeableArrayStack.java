@@ -110,50 +110,62 @@ public class ResizeableArrayStack<T> implements StackInterface<T>
 
 	public final static String evaluatePostfix(String postfix) {
 		//Evaluates a postfix expression.
-		ResizeableArrayStack<Character> valueStack = new ResizeableArrayStack<>();
+		int operandTwo;
+		int operandOne;
+		int result;
+		ResizeableArrayStack<Integer> valueStack = new ResizeableArrayStack<>();
 		for (int i=0;i<postfix.length();i++)
 		{
 			Character nextCharacter = postfix.charAt(i);
 			switch(nextCharacter)
 			{
 				case '+':
-					Character operandTwo = valueStack.pop();
-					Character operandOne = valueStack.pop();
-					int result = operandOne + operandTwo;
-					valueStack.push((char)result);
+					operandTwo = valueStack.pop();
+					operandOne = valueStack.pop();
+					result = operandOne + operandTwo;
+					System.out.println(operandOne + " + " + operandTwo + " = " + result);
+					valueStack.push(result);
 					break;
 				case '-':
 				operandTwo = valueStack.pop();
 				operandOne = valueStack.pop();
 				result = operandOne - operandTwo;
-				valueStack.push((char)result);
+				System.out.println(operandOne + " - " + operandTwo + " = " + result);
+				valueStack.push(result);
 				break;
 				case '*':
 				operandTwo = valueStack.pop();
 				operandOne = valueStack.pop();
 				result = operandOne * operandTwo;
-				valueStack.push((char)result);
+				System.out.println(operandOne + " * " + operandTwo + " = " + result);
+				valueStack.push(result);
 				break;
 				case '/':
 				operandTwo = valueStack.pop();
 				operandOne = valueStack.pop();
 				result = operandOne / operandTwo;
-				valueStack.push((char)result);
+				System.out.println(operandOne + " / " + operandTwo + " = " + result);
+				valueStack.push(result);
 				break;
 				case '^':
 				operandTwo = valueStack.pop();
 				operandOne = valueStack.pop();
 				result = operandOne ^ operandTwo;
-				valueStack.push((char)result);
+				System.out.println(operandOne + " ^ " + operandTwo + " = " + result);
+				valueStack.push(result);
 				break;
 
 				default:
-					if (nextCharacter >= 97 && nextCharacter <= 122){ // adds variables to postfix
-						valueStack.push(nextCharacter);
+					if (nextCharacter.isDigit(nextCharacter)){ // adds variables to postfix
+						int newNum = nextCharacter.getNumericValue(nextCharacter);
+						valueStack.push(newNum);
+					} else if (nextCharacter.isLetter(nextCharacter)) {
+						return "Please replace all variables with integers.";
 					}
 					break;
 			}
 		}
 		return valueStack.peek().toString();
 	}
+
 }
