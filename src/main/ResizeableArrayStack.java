@@ -11,46 +11,46 @@ public class ResizeableArrayStack<T> implements StackInterface<T>
 	private boolean integrityOK = false;
 	private static final int DEFAULT_CAPACITY = 50;
 	private static final int MAX_CAPACITY = 10000;
-  
-   public ResizeableArrayStack()
+	
+	public ResizeableArrayStack()
 	{
-      this(DEFAULT_CAPACITY);
-   } // end default constructor
-  
-   public ResizeableArrayStack(int initialCapacity)
+		this(DEFAULT_CAPACITY);
+	} // end default constructor
+
+	public ResizeableArrayStack(int initialCapacity)
 	{
-   integrityOK = false;
-   checkCapacity(initialCapacity);
+	integrityOK = false;
+	checkCapacity(initialCapacity);
       
-   // The cast is safe because the new array contains null entries
-   @SuppressWarnings("unchecked")
-   T[] tempStack = (T[])new Object[initialCapacity];
-   stack = tempStack;
+	// The cast is safe because the new array contains null entries
+	@SuppressWarnings("unchecked")
+	T[] tempStack = (T[])new Object[initialCapacity];
+	stack = tempStack;
 	topIndex = -1;
-   integrityOK = true;
-   } // end constructor
+	integrityOK = true;
+	} // end constructor
   
 
-   // Throws an exception if receiving object is not initialized.
-   private void checkIntegrity() {
-	   if (!integrityOK)
-		   throw new SecurityException ("ArrayStack object is corrupt.");
-   } // end checkintegrity()
+	// Throws an exception if receiving object is not initialized.
+	private void checkIntegrity() {
+		if (!integrityOK)
+			throw new SecurityException ("ArrayStack object is corrupt.");
+	} // end checkintegrity()
 
-   // Throws an exception if the client requests a capacity that is too large.
-   private void checkCapacity(int capacity) {
-      if (capacity > MAX_CAPACITY)
-      throw new IllegalStateException("Attempt to create a stack whose capacity exceeds allowed maximum of " + MAX_CAPACITY);
-   } // end checkCapacity
+	// Throws an exception if the client requests a capacity that is too large.
+	private void checkCapacity(int capacity) {
+		if (capacity > MAX_CAPACITY)
+		throw new IllegalStateException("Attempt to create a stack whose capacity exceeds allowed maximum of " + MAX_CAPACITY);
+	} // end checkCapacity
 
 	private void ensureCapacity()
 	{
-   	if (topIndex >= stack.length - 1) // If array is full, double its size
-   	{
-      	int newLength = 2 * stack.length;
-      	checkCapacity(newLength);
-      	stack = Arrays.copyOf(stack, newLength);
-   	} // end if
+		if (topIndex >= stack.length - 1) // If array is full, double its size
+		{
+			int newLength = 2 * stack.length;
+			checkCapacity(newLength);
+			stack = Arrays.copyOf(stack, newLength);
+		} // end if
 	} // end ensureCapacity
 
 
@@ -80,11 +80,11 @@ public class ResizeableArrayStack<T> implements StackInterface<T>
 
 	@Override
 	public T peek() {
-      checkIntegrity();
-      if (isEmpty())
-         throw new EmptyStackException();
-      else
-         return stack[topIndex];
+		checkIntegrity();
+		if (isEmpty())
+			throw new EmptyStackException();
+		else
+			return stack[topIndex];
 	}
 
 
@@ -96,15 +96,15 @@ public class ResizeableArrayStack<T> implements StackInterface<T>
 
 	@Override
 	public void clear() {
-      checkIntegrity();
+   	checkIntegrity();
       
-      // Remove references to the objects in the stack,
-      // but does not deallocate the array
-      while (topIndex > -1)
-      {
-          stack[topIndex] = null;
-          topIndex--;
-      } // end while
-      //Assertion: topIndex is -1
+   	// Remove references to the objects in the stack,
+   	// but does not deallocate the array
+   	while (topIndex > -1)
+   	{
+   		stack[topIndex] = null;
+   		topIndex--;
+   	} // end while
+   	//Assertion: topIndex is -1
 	}
 }
