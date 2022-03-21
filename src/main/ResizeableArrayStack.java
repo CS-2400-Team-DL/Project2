@@ -108,6 +108,15 @@ public class ResizeableArrayStack<T> implements StackInterface<T>
    	//Assertion: topIndex is -1
 	}
 
+
+	/**
+	 * Evaluates a postfix expression that consists of only digits and operators.
+	 * It will ignore non-number, non-letter, and non-operator symbols.
+	 * If input includes letters it will return a result as an error message.
+	 * @param postfix
+	 * @return evaluated number resultant from the postfix equation as a string.
+	 * @author Dean Mah
+	 */
 	public final static String evaluatePostfix(String postfix) {
 		//Evaluates a postfix expression.
 		int operandTwo;
@@ -156,7 +165,7 @@ public class ResizeableArrayStack<T> implements StackInterface<T>
 				break;
 
 				default:
-					if (nextCharacter.isDigit(nextCharacter)){ // adds variables to postfix
+					if (nextCharacter.isDigit(nextCharacter)){
 						int newNum = nextCharacter.getNumericValue(nextCharacter);
 						valueStack.push(newNum);
 					} else if (nextCharacter.isLetter(nextCharacter)) {
